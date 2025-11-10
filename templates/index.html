@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Oracle Cloud Storage</title>
+    <link rel="icon" type="image/gif" href="{{ url_for('static', filename='favicon.gif') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-images"></i>
+                <span>Photo Gallery</span>
+            </div>
+            <div class="navbar-actions">
+                <button class="btn btn-icon" onclick="carregarImagens()" title="Atualizar">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-plus"></i>
+                    <span>Upload</span>
+                </button>
+                <input type="file" id="fileInput" accept="image/*" hidden multiple>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="uploadBox">
+            <div class="upload-zone-content">
+                <div class="upload-icon-wrapper">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Arraste suas imagens aqui</h3>
+                <p>ou clique no botão Upload acima</p>
+                <div class="upload-formats">
+                    <span>PNG</span>
+                    <span>JPG</span>
+                    <span>JPEG</span>
+                    <span>GIF</span>
+                    <span>WebP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Status -->
+        <div id="uploadStatus" class="upload-status"></div>
+
+        <!-- Gallery Header -->
+        <div class="gallery-header">
+            <div class="gallery-header-content">
+                <h2>Suas Imagens</h2>
+                <div id="imageCount" class="image-count"></div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Carregando imagens...</p>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery" class="gallery-grid"></div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-icon">
+                <i class="fas fa-image"></i>
+            </div>
+            <h3>Nenhuma imagem ainda</h3>
+            <p>Faça upload da sua primeira imagem para começar</p>
+            <button class="btn btn-primary btn-lg" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-plus"></i>
+                Fazer Upload
+            </button>
+        </div>
+    </main>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-overlay" onclick="fecharModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="fecharModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-footer">
+                <div class="modal-info">
+                    <h3 id="modalTitle"></h3>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-outline" onclick="baixarImagem()">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                    <button class="btn btn-danger" onclick="excluirImagem()">
+                        <i class="fas fa-trash"></i>
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
